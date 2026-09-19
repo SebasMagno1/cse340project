@@ -1,165 +1,74 @@
 <%- include("partials/header") %>
 
-<section class="page-header">
+<h2><%= title %></h2>
 
-    <span class="section-label">
-        VOLUNTEER OPPORTUNITIES
-    </span>
-
-    <h2><%= title %></h2>
+<section>
 
     <p>
-        Find opportunities to serve, connect with others,
-        and make a positive impact in your community.
+        Browse available community service projects.
     </p>
 
 </section>
 
 
-<section class="card-grid project-grid">
+<section class="grid">
 
+    <% if (projects.length > 0) { %>
 
-    <article class="card project-card">
+        <% projects.forEach(project => { %>
 
-        <div class="project-icon">
-            🌳
-        </div>
+            <article class="card">
 
-        <span class="card-category">
-            Community Service
-        </span>
+                <h3>
+                    <%= project.title %>
+                </h3>
 
-        <h3>
-            Community Cleanup
-        </h3>
+                <p>
+                    <strong>Project ID:</strong>
+                    <%= project.project_id %>
+                </p>
 
-        <p>
-            Help clean and improve public spaces
-            while working with other community
-            volunteers.
-        </p>
+                <p>
+                    <strong>Organization:</strong>
+                    <%= project.organization_name %>
+                </p>
 
-        <div class="project-details">
+                <p>
+                    <strong>Description:</strong>
+                    <%= project.description %>
+                </p>
 
-            <p>
-                <strong>Category:</strong>
-                Community Service
-            </p>
+                <p>
+                    <strong>Location:</strong>
+                    <%= project.location %>
+                </p>
 
-            <p>
-                <strong>Location:</strong>
-                Local Community
-            </p>
+                <p>
+                    <strong>Date:</strong>
+                    <%= project.date %>
+                </p>
 
-        </div>
+                <p>
+                    <strong>Categories:</strong>
+                    <%= project.categories %>
+                </p>
 
-        <a class="card-link" href="/categories">
-            Explore Categories →
-        </a>
+                <a
+                    href="/projects/<%= project.project_id %>"
+                >
+                    View Details
+                </a>
 
-    </article>
+            </article>
 
+        <% }) %>
 
-    <article class="card project-card">
+    <% } else { %>
 
-        <div class="project-icon">
-            🌱
-        </div>
+        <p>No service projects found.</p>
 
-        <span class="card-category">
-            Environmental
-        </span>
-
-        <h3>
-            Tree Planting
-        </h3>
-
-        <p>
-            Help plant trees and improve local
-            green spaces while supporting a
-            healthier environment.
-        </p>
-
-        <div class="project-details">
-
-            <p>
-                <strong>Category:</strong>
-                Environmental
-            </p>
-
-            <p>
-                <strong>Location:</strong>
-                Local Community
-            </p>
-
-        </div>
-
-        <a class="card-link" href="/categories">
-            Explore Categories →
-        </a>
-
-    </article>
-
-
-    <article class="card project-card">
-
-        <div class="project-icon">
-            📚
-        </div>
-
-        <span class="card-category">
-            Educational
-        </span>
-
-        <h3>
-            Educational Support
-        </h3>
-
-        <p>
-            Help students with learning activities,
-            tutoring, and educational programs.
-        </p>
-
-        <div class="project-details">
-
-            <p>
-                <strong>Category:</strong>
-                Educational
-            </p>
-
-            <p>
-                <strong>Location:</strong>
-                Local Community
-            </p>
-
-        </div>
-
-        <a class="card-link" href="/categories">
-            Explore Categories →
-        </a>
-
-    </article>
-
+    <% } %>
 
 </section>
-
-
-<section class="callout">
-
-    <h2>
-        Find the Right Project for You
-    </h2>
-
-    <p>
-        Browse our categories to discover more
-        opportunities to serve.
-    </p>
-
-    <a class="button button-primary" href="/categories">
-        Browse Categories
-    </a>
-
-</section>
-
 
 <%- include("partials/footer") %>

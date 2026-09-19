@@ -1,139 +1,56 @@
 <%- include("partials/header") %>
 
-<section class="page-header">
+<h2><%= title %></h2>
 
-    <span class="section-label">
-        GET INVOLVED
-    </span>
-
-    <h2><%= title %></h2>
+<section>
 
     <p>
-        Explore organizations that provide meaningful
-        service opportunities and support communities.
+        Organizations that sponsor community service projects.
     </p>
 
 </section>
 
 
-<section class="card-grid organization-grid">
+<section class="grid">
 
+    <% if (organizations.length > 0) { %>
 
-    <article class="card organization-card">
+        <% organizations.forEach(organization => { %>
 
-        <img
-            src="/images/organization1.webp"
-            alt="Community service organization"
-        >
+            <article class="card">
 
-        <div class="card-content">
+                <% if (organization.image) { %>
 
-            <span class="card-category">
-                Community
-            </span>
+                    <img
+                        src="/images/<%= organization.image %>"
+                        alt="<%= organization.name %>"
+                    >
 
-            <h3>
-                Community Organization
-            </h3>
+                <% } %>
 
-            <p>
-                An organization dedicated to helping
-                individuals and families in the local
-                community.
-            </p>
+                <h3>
+                    <%= organization.name %>
+                </h3>
 
-            <a class="card-link" href="/projects">
-                View Projects →
-            </a>
+                <p>
+                    <%= organization.description %>
+                </p>
 
-        </div>
+                <p>
+                    <strong>Organization ID:</strong>
+                    <%= organization.organization_id %>
+                </p>
 
-    </article>
+            </article>
 
+        <% }) %>
 
-    <article class="card organization-card">
+    <% } else { %>
 
-        <img
-            src="/images/organization2.webp"
-            alt="Environmental organization"
-        >
+        <p>No organizations found.</p>
 
-        <div class="card-content">
-
-            <span class="card-category">
-                Environment
-            </span>
-
-            <h3>
-                Environmental Organization
-            </h3>
-
-            <p>
-                An organization focused on protecting
-                nature and improving the environment
-                through community service.
-            </p>
-
-            <a class="card-link" href="/projects">
-                View Projects →
-            </a>
-
-        </div>
-
-    </article>
-
-
-    <article class="card organization-card">
-
-        <img
-            src="/images/organization3.webp"
-            alt="Educational organization"
-        >
-
-        <div class="card-content">
-
-            <span class="card-category">
-                Education
-            </span>
-
-            <h3>
-                Educational Organization
-            </h3>
-
-            <p>
-                An organization that provides educational
-                opportunities, tutoring, and support
-                for students.
-            </p>
-
-            <a class="card-link" href="/projects">
-                View Projects →
-            </a>
-
-        </div>
-
-    </article>
-
+    <% } %>
 
 </section>
-
-
-<section class="callout">
-
-    <h2>
-        Ready to Get Involved?
-    </h2>
-
-    <p>
-        Explore our service projects and find an
-        opportunity to make a difference.
-    </p>
-
-    <a class="button button-primary" href="/projects">
-        View Service Projects
-    </a>
-
-</section>
-
 
 <%- include("partials/footer") %>

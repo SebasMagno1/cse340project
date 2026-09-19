@@ -1,154 +1,99 @@
 <%- include("partials/header") %>
 
-<section class="hero">
+<h2><%= title %></h2>
 
-    <div class="hero-content">
+<section>
 
-        <span class="hero-label">
-            COMMUNITY • SERVICE • IMPACT
-        </span>
+    <h3>Welcome to Service Projects</h3>
 
-        <h2><%= title %></h2>
+    <p>
+        Find volunteer opportunities and community
+        service projects in your area.
+    </p>
 
-        <p>
-            Discover organizations and service projects
-            where you can volunteer, connect with others,
-            and create a positive impact.
-        </p>
+</section>
 
-        <div class="hero-actions">
 
-            <a class="button button-primary" href="/projects">
-                Explore Projects
-            </a>
+<section>
 
-            <a class="button button-secondary" href="/organizations">
-                View Organizations
-            </a>
+    <h3>Organizations</h3>
+
+    <% if (organizations.length > 0) { %>
+
+        <div class="grid">
+
+            <% organizations.forEach(organization => { %>
+
+                <article class="card">
+
+                    <h4>
+                        <%= organization.name %>
+                    </h4>
+
+                    <p>
+                        <%= organization.description %>
+                    </p>
+
+                    <a href="/organizations">
+                        View Organizations
+                    </a>
+
+                </article>
+
+            <% }) %>
 
         </div>
 
-    </div>
+    <% } else { %>
+
+        <p>No organizations found.</p>
+
+    <% } %>
 
 </section>
 
 
-<section class="content-section">
+<section>
 
-    <div class="section-heading">
+    <h3>Service Projects</h3>
 
-        <span class="section-label">
-            GET INVOLVED
-        </span>
+    <% if (projects.length > 0) { %>
 
-        <h2>
-            Find Your Opportunity to Serve
-        </h2>
+        <div class="grid">
 
-        <p>
-            Explore organizations, projects, and categories
-            to find a service opportunity that matches
-            your interests.
-        </p>
+            <% projects.forEach(project => { %>
 
-    </div>
+                <article class="card">
 
+                    <h4>
+                        <%= project.title %>
+                    </h4>
 
-    <div class="card-grid">
+                    <p>
+                        <strong>Organization:</strong>
+                        <%= project.organization_name %>
+                    </p>
 
-        <article class="card feature-card">
+                    <p>
+                        <%= project.description %>
+                    </p>
 
-            <div class="card-icon">
-                🤝
-            </div>
+                    <a href="/projects/<%= project.project_id %>">
+                        View Project
+                    </a>
 
-            <h3>
-                Organizations
-            </h3>
+                </article>
 
-            <p>
-                Learn about organizations that provide
-                meaningful service opportunities in
-                the community.
-            </p>
+            <% }) %>
 
-            <a class="card-link" href="/organizations">
-                Explore Organizations →
-            </a>
+        </div>
 
-        </article>
+    <% } else { %>
 
+        <p>No service projects found.</p>
 
-        <article class="card feature-card">
-
-            <div class="card-icon">
-                🌱
-            </div>
-
-            <h3>
-                Service Projects
-            </h3>
-
-            <p>
-                Find projects where you can volunteer,
-                contribute your skills, and help others.
-            </p>
-
-            <a class="card-link" href="/projects">
-                Explore Projects →
-            </a>
-
-        </article>
-
-
-        <article class="card feature-card">
-
-            <div class="card-icon">
-                📂
-            </div>
-
-            <h3>
-                Categories
-            </h3>
-
-            <p>
-                Browse service opportunities by category
-                to quickly find projects that interest you.
-            </p>
-
-            <a class="card-link" href="/categories">
-                Browse Categories →
-            </a>
-
-        </article>
-
-    </div>
+    <% } %>
 
 </section>
-
-
-<section class="impact-section">
-
-    <div class="impact-content">
-
-        <span class="section-label">
-            WHY SERVICE MATTERS
-        </span>
-
-        <h2>
-            Small Actions Can Create
-            a Big Impact
-        </h2>
-
-        <p>
-            Volunteering gives you the opportunity to
-            strengthen your community, develop new skills,
-            meet people, and make a meaningful difference.
-        </p>
-
-    </div>
-
-</section>
-
 
 <%- include("partials/footer") %>

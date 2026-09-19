@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -9,33 +10,68 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title><%= title %> | Service Projects</title>
+    <title>
+        <%= title %> | Service Projects
+    </title>
 
-    <link rel="stylesheet" href="/css/style.css">
+    <link
+        rel="stylesheet"
+        href="/css/style.css"
+    >
+
 </head>
+
 
 <body>
 
-<header>
 
-    <nav>
+<header class="site-header">
 
-        <a href="/">Home</a>
+    <div class="container header-content">
 
-        <a href="/organizations">
-            Organizations
-        </a>
-
-        <a href="/projects">
+        <a
+            class="logo"
+            href="/"
+        >
             Service Projects
         </a>
 
-        <a href="/categories">
-            Categories
-        </a>
 
-    </nav>
+        <nav>
+
+            <ul class="nav-list">
+
+                <li>
+                    <a href="/">
+                        Home
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/organizations">
+                        Organizations
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/projects">
+                        Projects
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/categories">
+                        Categories
+                    </a>
+                </li>
+
+            </ul>
+
+        </nav>
+
+    </div>
 
 </header>
+
 
 <main class="container">

@@ -1,7 +1,12 @@
 const pool = require("../database/pool");
 
 
+// ============================================
+// GET ALL PROJECTS
+// ============================================
+
 async function getProjects() {
+
     const sql = `
         SELECT
             p.project_id,
@@ -9,15 +14,22 @@ async function getProjects() {
             p.title,
             p.description,
             p.location,
-            p.date,
-            o.name AS organization_name,
+            p.project_date,
+
+            o.organization_name,
+
             COALESCE(
-                STRING_AGG(c.name, ', ' ORDER BY c.name),
-                'No category'
+                STRING_AGG(
+                    c.category_name,
+                    ', '
+                    ORDER BY c.category_name
+                ),
+                'Uncategorized'
             ) AS categories
+
         FROM projects p
 
-        JOIN organizations o
+        INNER JOIN organizations o
             ON p.organization_id = o.organization_id
 
         LEFT JOIN project_categories pc
@@ -32,10 +44,10 @@ async function getProjects() {
             p.title,
             p.description,
             p.location,
-            p.date,
-            o.name
+            p.project_date,
+            o.organization_name
 
-        ORDER BY p.date;
+        ORDER BY p.project_date;
     `;
 
     const result = await pool.query(sql);
@@ -44,7 +56,12 @@ async function getProjects() {
 }
 
 
+// ============================================
+// GET PROJECT BY ID
+// ============================================
+
 async function getProjectById(projectId) {
+
     const sql = `
         SELECT
             p.project_id,
@@ -52,15 +69,22 @@ async function getProjectById(projectId) {
             p.title,
             p.description,
             p.location,
-            p.date,
-            o.name AS organization_name,
+            p.project_date,
+
+            o.organization_name,
+
             COALESCE(
-                STRING_AGG(c.name, ', ' ORDER BY c.name),
-                'No category'
+                ARRAY_AGG(
+                    DISTINCT c.category_name
+                ) FILTER (
+                    WHERE c.category_name IS NOT NULL
+                ),
+                ARRAY[]::VARCHAR[]
             ) AS categories
+
         FROM projects p
 
-        JOIN organizations o
+        INNER JOIN organizations o
             ON p.organization_id = o.organization_id
 
         LEFT JOIN project_categories pc
@@ -77,8 +101,8 @@ async function getProjectById(projectId) {
             p.title,
             p.description,
             p.location,
-            p.date,
-            o.name;
+            p.project_date,
+            o.organization_name;
     `;
 
     const result = await pool.query(sql, [projectId]);

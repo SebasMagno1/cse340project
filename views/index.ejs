@@ -1,99 +1,191 @@
 <%- include("partials/header") %>
 
-<h2><%= title %></h2>
 
-<section>
+<section class="hero">
 
-    <h3>Welcome to Service Projects</h3>
+    <div>
 
-    <p>
-        Find volunteer opportunities and community
-        service projects in your area.
-    </p>
+        <span class="section-label">
+            COMMUNITY SERVICE
+        </span>
 
-</section>
+        <h2>
+            Welcome to Service Projects
+        </h2>
 
+        <p>
+            Discover organizations and service
+            opportunities where you can make a
+            difference in your community.
+        </p>
 
-<section>
+        <a
+            class="button"
+            href="/projects"
+        >
+            View Service Projects
+        </a>
 
-    <h3>Organizations</h3>
-
-    <% if (organizations.length > 0) { %>
-
-        <div class="grid">
-
-            <% organizations.forEach(organization => { %>
-
-                <article class="card">
-
-                    <h4>
-                        <%= organization.name %>
-                    </h4>
-
-                    <p>
-                        <%= organization.description %>
-                    </p>
-
-                    <a href="/organizations">
-                        View Organizations
-                    </a>
-
-                </article>
-
-            <% }) %>
-
-        </div>
-
-    <% } else { %>
-
-        <p>No organizations found.</p>
-
-    <% } %>
+    </div>
 
 </section>
 
 
-<section>
+<section class="content-section">
 
-    <h3>Service Projects</h3>
+    <div class="page-header">
 
-    <% if (projects.length > 0) { %>
+        <span class="section-label">
+            OUR COMMUNITY
+        </span>
 
-        <div class="grid">
+        <h2>
+            Organizations
+        </h2>
 
-            <% projects.forEach(project => { %>
+    </div>
 
-                <article class="card">
 
-                    <h4>
-                        <%= project.title %>
-                    </h4>
+    <div class="card-grid">
 
-                    <p>
-                        <strong>Organization:</strong>
-                        <%= project.organization_name %>
-                    </p>
+        <% organizations.forEach(
+            organization => {
+        %>
 
-                    <p>
-                        <%= project.description %>
-                    </p>
+            <article class="card">
 
-                    <a href="/projects/<%= project.project_id %>">
-                        View Project
-                    </a>
+                <h3>
+                    <%= organization.organization_name %>
+                </h3>
 
-                </article>
+                <p>
+                    <%= organization.description %>
+                </p>
 
-            <% }) %>
+                <a
+                    href="/organizations"
+                    class="card-link"
+                >
+                    View Organizations →
+                </a>
 
-        </div>
+            </article>
 
-    <% } else { %>
+        <% }); %>
 
-        <p>No service projects found.</p>
-
-    <% } %>
+    </div>
 
 </section>
+
+
+<section class="content-section">
+
+    <div class="page-header">
+
+        <span class="section-label">
+            VOLUNTEER
+        </span>
+
+        <h2>
+            Service Projects
+        </h2>
+
+    </div>
+
+
+    <div class="card-grid">
+
+        <% projects.slice(0, 3).forEach(
+            project => {
+        %>
+
+            <article class="card">
+
+                <h3>
+                    <%= project.title %>
+                </h3>
+
+                <p>
+                    <%= project.description %>
+                </p>
+
+                <p>
+                    <strong>
+                        Location:
+                    </strong>
+
+                    <%= project.location %>
+                </p>
+
+                <a
+                    href="/projects/<%= project.project_id %>"
+                    class="card-link"
+                >
+                    View Project →
+                </a>
+
+            </article>
+
+        <% }); %>
+
+    </div>
+
+
+    <a
+        href="/projects"
+        class="button button-primary"
+    >
+        View All Projects
+    </a>
+
+</section>
+
+
+<section class="content-section">
+
+    <div class="page-header">
+
+        <span class="section-label">
+            EXPLORE
+        </span>
+
+        <h2>
+            Categories
+        </h2>
+
+    </div>
+
+
+    <div class="card-grid">
+
+        <% categories.forEach(
+            category => {
+        %>
+
+            <article class="card">
+
+                <h3>
+                    <%= category.category_name %>
+                </h3>
+
+                <p>
+                    <%= category.description %>
+                </p>
+
+                <a
+                    href="/categories"
+                    class="card-link"
+                >
+                    View Category →
+                </a>
+
+            </article>
+
+        <% }); %>
+
+    </div>
+
+</section>
+
 
 <%- include("partials/footer") %>

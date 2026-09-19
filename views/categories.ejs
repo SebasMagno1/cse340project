@@ -1,12 +1,15 @@
 <%- include("partials/header") %>
 
+
 <section class="page-header">
 
     <span class="section-label">
         EXPLORE OPPORTUNITIES
     </span>
 
-    <h2><%= title %></h2>
+    <h2>
+        <%= title %>
+    </h2>
 
     <p>
         Explore service projects by category and
@@ -18,92 +21,74 @@
 
 <section class="card-grid category-grid">
 
-    <article class="card category-card">
+    <% categories.forEach(
+        category => {
+    %>
 
-        <div class="category-icon">
-            🌱
-        </div>
+        <article class="card category-card">
 
-        <h3>
-            Environmental
-        </h3>
-
-        <p>
-            Projects focused on protecting,
-            restoring, and improving the environment.
-        </p>
-
-        <a class="card-link" href="/projects">
-            View Projects →
-        </a>
-
-    </article>
+            <div class="category-icon">
+                🌱
+            </div>
 
 
-    <article class="card category-card">
-
-        <div class="category-icon">
-            📚
-        </div>
-
-        <h3>
-            Educational
-        </h3>
-
-        <p>
-            Projects focused on education,
-            tutoring, learning, and student support.
-        </p>
-
-        <a class="card-link" href="/projects">
-            View Projects →
-        </a>
-
-    </article>
+            <h3>
+                <%= category.category_name %>
+            </h3>
 
 
-    <article class="card category-card">
-
-        <div class="category-icon">
-            🤝
-        </div>
-
-        <h3>
-            Community Service
-        </h3>
-
-        <p>
-            Projects designed to help strengthen
-            and support local communities.
-        </p>
-
-        <a class="card-link" href="/projects">
-            View Projects →
-        </a>
-
-    </article>
+            <p>
+                <%= category.description %>
+            </p>
 
 
-    <article class="card category-card">
+            <% if (
+                category.projects &&
+                category.projects.length > 0
+            ) { %>
 
-        <div class="category-icon">
-            ❤️
-        </div>
+                <h4>
+                    Available Projects
+                </h4>
 
-        <h3>
-            Health and Wellness
-        </h3>
 
-        <p>
-            Projects focused on supporting health,
-            wellness, and quality of life.
-        </p>
+                <ul class="project-list">
 
-        <a class="card-link" href="/projects">
-            View Projects →
-        </a>
+                    <% category.projects.forEach(
+                        project => {
+                    %>
 
-    </article>
+                        <li>
+
+                            <a
+                                href="/projects/<%= project.project_id %>"
+                            >
+                                <%= project.title %>
+                            </a>
+
+                            <span>
+                                -
+                                <%= project.location %>
+                            </span>
+
+                        </li>
+
+                    <% }); %>
+
+                </ul>
+
+            <% } else { %>
+
+                <p>
+                    No projects are currently
+                    available in this category.
+                </p>
+
+            <% } %>
+
+        </article>
+
+    <% }); %>
 
 </section>
 
@@ -119,7 +104,10 @@
         find your next opportunity.
     </p>
 
-    <a class="button button-primary" href="/projects">
+    <a
+        class="button button-primary"
+        href="/projects"
+    >
         View Service Projects
     </a>
 

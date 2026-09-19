@@ -1,15 +1,16 @@
 const pool = require("../database/pool");
 
 
+// Get all organizations
 async function getOrganizations() {
     const sql = `
         SELECT
             organization_id,
-            name,
+            organization_name,
             description,
-            image
+            website
         FROM organizations
-        ORDER BY name;
+        ORDER BY organization_name;
     `;
 
     const result = await pool.query(sql);
@@ -18,13 +19,14 @@ async function getOrganizations() {
 }
 
 
+// Get one organization
 async function getOrganizationById(organizationId) {
     const sql = `
         SELECT
             organization_id,
-            name,
+            organization_name,
             description,
-            image
+            website
         FROM organizations
         WHERE organization_id = $1;
     `;

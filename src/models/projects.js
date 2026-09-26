@@ -6,9 +6,7 @@ const pool = require("../database/pool");
 // ============================================
 
 async function getProjects() {
-
-    const sql = `
-        SELECT
+    const sql = `SELECT
             p.project_id,
             p.organization_id,
             p.title,
@@ -19,12 +17,13 @@ async function getProjects() {
             o.organization_name,
 
             COALESCE(
-                STRING_AGG(
-                    c.category_name,
-                    ', '
+                ARRAY_AGG(
+                    DISTINCT c.category_name
                     ORDER BY c.category_name
+                ) FILTER (
+                    WHERE c.category_name IS NOT NULL
                 ),
-                'Uncategorized'
+                ARRAY[]::VARCHAR[]
             ) AS categories
 
         FROM projects p
@@ -61,9 +60,7 @@ async function getProjects() {
 // ============================================
 
 async function getProjectById(projectId) {
-
-    const sql = `
-        SELECT
+    const sql = `SELECT
             p.project_id,
             p.organization_id,
             p.title,
@@ -76,6 +73,7 @@ async function getProjectById(projectId) {
             COALESCE(
                 ARRAY_AGG(
                     DISTINCT c.category_name
+                    ORDER BY c.category_name
                 ) FILTER (
                     WHERE c.category_name IS NOT NULL
                 ),
@@ -110,6 +108,10 @@ async function getProjectById(projectId) {
     return result.rows[0];
 }
 
+
+// ============================================
+// EXPORT FUNCTIONS
+// ============================================
 
 module.exports = {
     getProjects,

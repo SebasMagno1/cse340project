@@ -1,20 +1,23 @@
 <%- include("partials/header", { title: title }) %>
 
-<section>
+<section class="detail">
 
     <h2><%= category.category_name %></h2>
 
     <% if (category.description) { %>
+
         <p>
             <%= category.description %>
         </p>
+
     <% } %>
 
 </section>
 
+
 <section>
 
-    <h2>Projects in This Category</h2>
+    <h2>Projects in this Category</h2>
 
     <% if (projects && projects.length > 0) { %>
 
@@ -25,37 +28,67 @@
                 <article class="card">
 
                     <h3>
+
                         <a href="/projects/<%= project.project_id %>">
+
                             <%= project.title %>
+
                         </a>
+
                     </h3>
 
+
                     <% if (project.description) { %>
+
                         <p>
                             <%= project.description %>
                         </p>
+
                     <% } %>
 
-                    <p>
-                        <strong>Organization:</strong>
 
-                        <a href="/organizations/<%= project.organization_id %>">
-                            <%= project.organization_name %>
-                        </a>
-                    </p>
+                    <% if (project.organization_name) { %>
+
+                        <p>
+
+                            <strong>Organization:</strong>
+
+                            <a
+                                href="/organizations/<%= project.organization_id %>"
+                            >
+                                <%= project.organization_name %>
+                            </a>
+
+                        </p>
+
+                    <% } %>
+
 
                     <% if (project.location) { %>
+
                         <p>
+
                             <strong>Location:</strong>
+
                             <%= project.location %>
+
                         </p>
+
                     <% } %>
 
+
                     <% if (project.project_date) { %>
+
                         <p>
+
                             <strong>Date:</strong>
-                            <%= new Date(project.project_date).toLocaleDateString() %>
+
+                            <%= new Date(
+                                project.project_date
+                            ).toLocaleDateString() %>
+
                         </p>
+
                     <% } %>
 
                 </article>
@@ -67,17 +100,23 @@
     <% } else { %>
 
         <p>
-            There are no projects in this category.
+            No service projects belong to this category.
         </p>
 
     <% } %>
 
 </section>
 
+
 <p>
-    <a class="button" href="/categories">
+
+    <a
+        class="button"
+        href="/categories"
+    >
         Back to Categories
     </a>
+
 </p>
 
 <%- include("partials/footer") %>

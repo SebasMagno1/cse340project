@@ -11,7 +11,6 @@ const projectsModel =
 const categoriesModel =
     require("./src/models/categories");
 
-
 const app = express();
 
 const PORT = process.env.PORT || 3000;
@@ -80,7 +79,7 @@ app.get("/", async (req, res, next) => {
 
 
 // ============================================
-// ORGANIZATIONS
+// ORGANIZATIONS LIST
 // ============================================
 
 app.get(
@@ -108,7 +107,62 @@ app.get(
 
 
 // ============================================
-// PROJECTS
+// ORGANIZATION DETAILS
+// ============================================
+
+app.get(
+    "/organizations/:id",
+    async (req, res, next) => {
+
+        try {
+
+            const organizationId =
+                parseInt(req.params.id, 10);
+
+            if (Number.isNaN(organizationId)) {
+
+                return res.status(400).send(
+                    "Invalid organization ID."
+                );
+
+            }
+
+            const organization =
+                await organizationsModel.getOrganizationById(
+                    organizationId
+                );
+
+            if (!organization) {
+
+                return res.status(404).send(
+                    "Organization not found."
+                );
+
+            }
+
+            const projects =
+                await organizationsModel.getProjectsByOrganizationId(
+                    organizationId
+                );
+
+            res.render("organization-detail", {
+                title: organization.organization_name,
+                organization,
+                projects
+            });
+
+        } catch (error) {
+
+            next(error);
+
+        }
+
+    }
+);
+
+
+// ============================================
+// PROJECTS LIST
 // ============================================
 
 app.get(
@@ -136,7 +190,7 @@ app.get(
 
 
 // ============================================
-// SINGLE PROJECT
+// PROJECT DETAILS
 // ============================================
 
 app.get(
@@ -156,12 +210,10 @@ app.get(
 
             }
 
-
             const project =
                 await projectsModel.getProjectById(
                     projectId
                 );
-
 
             if (!project) {
 
@@ -171,10 +223,15 @@ app.get(
 
             }
 
+            const categories =
+                await projectsModel.getCategoriesByProjectId(
+                    projectId
+                );
 
             res.render("project-detail", {
                 title: project.title,
-                project
+                project,
+                categories
             });
 
         } catch (error) {
@@ -188,7 +245,7 @@ app.get(
 
 
 // ============================================
-// CATEGORIES
+// CATEGORIES LIST
 // ============================================
 
 app.get(
@@ -198,12 +255,66 @@ app.get(
         try {
 
             const categories =
-                await categoriesModel
-                    .getCategoriesWithProjects();
+                await categoriesModel.getCategories();
 
             res.render("categories", {
                 title: "Categories",
                 categories
+            });
+
+        } catch (error) {
+
+            next(error);
+
+        }
+
+    }
+);
+
+
+// ============================================
+// CATEGORY DETAILS
+// ============================================
+
+app.get(
+    "/categories/:id",
+    async (req, res, next) => {
+
+        try {
+
+            const categoryId =
+                parseInt(req.params.id, 10);
+
+            if (Number.isNaN(categoryId)) {
+
+                return res.status(400).send(
+                    "Invalid category ID."
+                );
+
+            }
+
+            const category =
+                await categoriesModel.getCategoryById(
+                    categoryId
+                );
+
+            if (!category) {
+
+                return res.status(404).send(
+                    "Category not found."
+                );
+
+            }
+
+            const projects =
+                await categoriesModel.getProjectsByCategoryId(
+                    categoryId
+                );
+
+            res.render("category-detail", {
+                title: category.category_name,
+                category,
+                projects
             });
 
         } catch (error) {

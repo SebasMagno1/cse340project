@@ -1,13 +1,15 @@
 <%- include("partials/header", { title: title }) %>
 
-<section>
+<section class="detail">
 
     <h2><%= organization.organization_name %></h2>
 
     <% if (organization.description) { %>
+
         <p>
             <%= organization.description %>
         </p>
+
     <% } %>
 
     <% if (organization.website) { %>
@@ -23,7 +25,7 @@
                 Visit Organization Website
             </a>
         </p>
-        
+
     <% } %>
 
 </section>
@@ -33,7 +35,7 @@
 
     <h2>Service Projects</h2>
 
-    <% if (projects.length > 0) { %>
+    <% if (projects && projects.length > 0) { %>
 
         <div class="cards">
 
@@ -48,23 +50,31 @@
                     </h3>
 
                     <% if (project.description) { %>
+
                         <p>
                             <%= project.description %>
                         </p>
+
                     <% } %>
 
                     <% if (project.location) { %>
+
                         <p>
                             <strong>Location:</strong>
                             <%= project.location %>
                         </p>
+
                     <% } %>
 
                     <% if (project.project_date) { %>
+
                         <p>
                             <strong>Date:</strong>
-                            <%= new Date(project.project_date).toLocaleDateString() %>
+                            <%= new Date(
+                                project.project_date
+                            ).toLocaleDateString() %>
                         </p>
+
                     <% } %>
 
                 </article>
@@ -76,7 +86,7 @@
     <% } else { %>
 
         <p>
-            This organization currently has no projects.
+            This organization currently has no service projects.
         </p>
 
     <% } %>
@@ -85,9 +95,14 @@
 
 
 <p>
-    <a class="button" href="/organizations">
+
+    <a
+        class="button"
+        href="/organizations"
+    >
         Back to Organizations
     </a>
+
 </p>
 
 <%- include("partials/footer") %>

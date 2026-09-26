@@ -5,14 +5,15 @@ const router = express.Router();
 const categoriesController =
     require("../controllers/categories");
 
-
+// Categories list
 router.get(
     "/categories",
     categoriesController.buildCategories
 );
 
+// Category details
 router.get(
-    "/category/:id",
+    "/categories/:id",
     categoriesController.buildCategoryDetail
 );
 

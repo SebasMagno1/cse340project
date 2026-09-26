@@ -2,13 +2,38 @@
 
 <section>
 
-    <h2><%= title %></h2>
+    <h2><%= organization.organization_name %></h2>
 
-    <p>
-        Explore available community service projects.
-    </p>
+    <% if (organization.description) { %>
+        <p>
+            <%= organization.description %>
+        </p>
+    <% } %>
 
-    <% if (projects && projects.length > 0) { %>
+    <% if (organization.website) { %>
+
+        <p>
+            <strong>Website:</strong>
+
+            <a
+                href="<%= organization.website %>"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Visit Organization Website
+            </a>
+        </p>
+        
+    <% } %>
+
+</section>
+
+
+<section>
+
+    <h2>Service Projects</h2>
+
+    <% if (projects.length > 0) { %>
 
         <div class="cards">
 
@@ -27,14 +52,6 @@
                             <%= project.description %>
                         </p>
                     <% } %>
-
-                    <p>
-                        <strong>Organization:</strong>
-
-                        <a href="/organizations/<%= project.organization_id %>">
-                            <%= project.organization_name %>
-                        </a>
-                    </p>
 
                     <% if (project.location) { %>
                         <p>
@@ -59,11 +76,18 @@
     <% } else { %>
 
         <p>
-            No service projects are currently available.
+            This organization currently has no projects.
         </p>
 
     <% } %>
 
 </section>
+
+
+<p>
+    <a class="button" href="/organizations">
+        Back to Organizations
+    </a>
+</p>
 
 <%- include("partials/footer") %>

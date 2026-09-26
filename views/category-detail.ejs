@@ -2,11 +2,19 @@
 
 <section>
 
-    <h2><%= title %></h2>
+    <h2><%= category.category_name %></h2>
 
-    <p>
-        Explore available community service projects.
-    </p>
+    <% if (category.description) { %>
+        <p>
+            <%= category.description %>
+        </p>
+    <% } %>
+
+</section>
+
+<section>
+
+    <h2>Projects in This Category</h2>
 
     <% if (projects && projects.length > 0) { %>
 
@@ -59,11 +67,17 @@
     <% } else { %>
 
         <p>
-            No service projects are currently available.
+            There are no projects in this category.
         </p>
 
     <% } %>
 
 </section>
+
+<p>
+    <a class="button" href="/categories">
+        Back to Categories
+    </a>
+</p>
 
 <%- include("partials/footer") %>

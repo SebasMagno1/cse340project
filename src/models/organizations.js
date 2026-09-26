@@ -1,7 +1,8 @@
 const pool = require("../database/pool");
 
-
-// Get all organizations
+/*
+ * Get all organizations
+ */
 async function getOrganizations() {
     const sql = `
         SELECT
@@ -19,7 +20,9 @@ async function getOrganizations() {
 }
 
 
-// Get one organization by ID
+/*
+ * Get one organization by ID
+ */
 async function getOrganizationById(organizationId) {
     const sql = `
         SELECT
@@ -31,35 +34,30 @@ async function getOrganizationById(organizationId) {
         WHERE organization_id = $1;
     `;
 
-    const result = await pool.query(
-        sql,
-        [organizationId]
-    );
+    const result = await pool.query(sql, [organizationId]);
 
     return result.rows[0];
 }
 
 
-// Get all projects for an organization
-async function getProjectsByOrganizationId(
-    organizationId
-) {
+/*
+ * Get all projects for an organization
+ */
+async function getProjectsByOrganizationId(organizationId) {
     const sql = `
         SELECT
-            p.project_id,
-            p.title,
-            p.description,
-            p.location,
-            p.project_date
-        FROM projects p
-        WHERE p.organization_id = $1
-        ORDER BY p.project_date;
+            project_id,
+            title,
+            description,
+            location,
+            project_date,
+            organization_id
+        FROM projects
+        WHERE organization_id = $1
+        ORDER BY project_date;
     `;
 
-    const result = await pool.query(
-        sql,
-        [organizationId]
-    );
+    const result = await pool.query(sql, [organizationId]);
 
     return result.rows;
 }

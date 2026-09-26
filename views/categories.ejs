@@ -1,117 +1,47 @@
-<%- include("partials/header") %>
+<%- include("partials/header", { title: title }) %>
 
+<section>
 
-<section class="page-header">
-
-    <span class="section-label">
-        EXPLORE OPPORTUNITIES
-    </span>
-
-    <h2>
-        <%= title %>
-    </h2>
+    <h2><%= title %></h2>
 
     <p>
-        Explore service projects by category and
-        find an opportunity that matches your interests.
+        Explore service projects by category.
     </p>
 
-</section>
+    <% if (categories && categories.length > 0) { %>
 
+        <div class="cards">
 
-<section class="card-grid category-grid">
+            <% categories.forEach(category => { %>
 
-    <% categories.forEach(
-        category => {
-    %>
+                <article class="card">
 
-        <article class="card category-card">
+                    <h3>
+                        <a href="/categories/<%= category.category_id %>">
+                            <%= category.category_name %>
+                        </a>
+                    </h3>
 
-            <div class="category-icon">
-                🌱
-            </div>
+                    <% if (category.description) { %>
+                        <p>
+                            <%= category.description %>
+                        </p>
+                    <% } %>
 
+                </article>
 
-            <h3>
-                <%= category.category_name %>
-            </h3>
+            <% }) %>
 
+        </div>
 
-            <p>
-                <%= category.description %>
-            </p>
+    <% } else { %>
 
+        <p>
+            No categories are currently available.
+        </p>
 
-            <% if (
-                category.projects &&
-                category.projects.length > 0
-            ) { %>
-
-                <h4>
-                    Available Projects
-                </h4>
-
-
-                <ul class="project-list">
-
-                    <% category.projects.forEach(
-                        project => {
-                    %>
-
-                        <li>
-
-                            <a
-                                href="/projects/<%= project.project_id %>"
-                            >
-                                <%= project.title %>
-                            </a>
-
-                            <span>
-                                -
-                                <%= project.location %>
-                            </span>
-
-                        </li>
-
-                    <% }); %>
-
-                </ul>
-
-            <% } else { %>
-
-                <p>
-                    No projects are currently
-                    available in this category.
-                </p>
-
-            <% } %>
-
-        </article>
-
-    <% }); %>
+    <% } %>
 
 </section>
-
-
-<section class="callout">
-
-    <h2>
-        Ready to Serve?
-    </h2>
-
-    <p>
-        Explore available service projects and
-        find your next opportunity.
-    </p>
-
-    <a
-        class="button button-primary"
-        href="/projects"
-    >
-        View Service Projects
-    </a>
-
-</section>
-
 
 <%- include("partials/footer") %>

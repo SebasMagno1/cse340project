@@ -1,103 +1,49 @@
-<%- include("partials/header") %>
+<%- include("partials/header", { title: title }) %>
 
+<section>
 
-<section class="page-header">
-
-    <span class="section-label">
-        GET INVOLVED
-    </span>
-
-    <h2>
-        <%= title %>
-    </h2>
+    <h2><%= title %></h2>
 
     <p>
-        Explore organizations that provide meaningful
-        service opportunities and support communities.
+        Explore organizations offering service opportunities.
     </p>
 
-</section>
+    <div class="cards">
 
+        <% organizations.forEach(organization => { %>
 
-<section class="card-grid organization-grid">
-
-    <% organizations.forEach(
-        organization => {
-    %>
-
-        <article class="card organization-card">
-
-            <div class="card-content">
-
-                <span class="card-category">
-                    Community Organization
-                </span>
+            <article class="card">
 
                 <h3>
-                    <%= organization.organization_name %>
+                    <a href="/organizations/<%= organization.organization_id %>">
+                        <%= organization.organization_name %>
+                    </a>
                 </h3>
 
                 <p>
                     <%= organization.description %>
                 </p>
 
-
                 <% if (organization.website) { %>
 
                     <p>
-
-                        <strong>
-                            Website:
-                        </strong>
-
                         <a
                             href="<%= organization.website %>"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            Visit Website
+                            Organization Website
                         </a>
-
                     </p>
 
                 <% } %>
 
+            </article>
 
-                <a
-                    class="card-link"
-                    href="/projects"
-                >
-                    View Projects →
-                </a>
+        <% }) %>
 
-            </div>
-
-        </article>
-
-    <% }); %>
+    </div>
 
 </section>
-
-
-<section class="callout">
-
-    <h2>
-        Ready to Get Involved?
-    </h2>
-
-    <p>
-        Explore our service projects and find an
-        opportunity to make a difference.
-    </p>
-
-    <a
-        class="button button-primary"
-        href="/projects"
-    >
-        View Service Projects
-    </a>
-
-</section>
-
 
 <%- include("partials/footer") %>

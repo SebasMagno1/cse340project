@@ -1,7 +1,8 @@
 const pool = require("../database/pool");
 
-
-// Get all categories
+/*
+ * Get all categories
+ */
 async function getCategories() {
     const sql = `
         SELECT
@@ -18,7 +19,9 @@ async function getCategories() {
 }
 
 
-// Get one category by ID
+/*
+ * Get one category by ID
+ */
 async function getCategoryById(categoryId) {
     const sql = `
         SELECT
@@ -29,16 +32,15 @@ async function getCategoryById(categoryId) {
         WHERE category_id = $1;
     `;
 
-    const result = await pool.query(
-        sql,
-        [categoryId]
-    );
+    const result = await pool.query(sql, [categoryId]);
 
     return result.rows[0];
 }
 
 
-// Get all categories for a project
+/*
+ * Get all categories for a specific project
+ */
 async function getCategoriesByProjectId(projectId) {
     const sql = `
         SELECT
@@ -52,16 +54,15 @@ async function getCategoriesByProjectId(projectId) {
         ORDER BY c.category_name;
     `;
 
-    const result = await pool.query(
-        sql,
-        [projectId]
-    );
+    const result = await pool.query(sql, [projectId]);
 
     return result.rows;
 }
 
 
-// Get all projects for a category
+/*
+ * Get all projects for a specific category
+ */
 async function getProjectsByCategoryId(categoryId) {
     const sql = `
         SELECT
@@ -70,6 +71,7 @@ async function getProjectsByCategoryId(categoryId) {
             p.description,
             p.location,
             p.project_date,
+            p.organization_id,
             o.organization_name
         FROM projects p
         INNER JOIN project_categories pc
@@ -80,10 +82,7 @@ async function getProjectsByCategoryId(categoryId) {
         ORDER BY p.project_date;
     `;
 
-    const result = await pool.query(
-        sql,
-        [categoryId]
-    );
+    const result = await pool.query(sql, [categoryId]);
 
     return result.rows;
 }

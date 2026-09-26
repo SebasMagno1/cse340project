@@ -5,14 +5,15 @@ const router = express.Router();
 const organizationsController =
     require("../controllers/organizations");
 
-
+// Organizations list
 router.get(
     "/organizations",
     organizationsController.buildOrganizations
 );
 
+// Organization details
 router.get(
-    "/organization/:id",
+    "/organizations/:id",
     organizationsController.buildOrganizationDetail
 );
 

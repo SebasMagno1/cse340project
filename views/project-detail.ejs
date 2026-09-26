@@ -1,106 +1,73 @@
-<%- include("partials/header") %>
+<%- include("partials/header", { title: title }) %>
 
+<section class="detail">
 
-<section class="page-header">
+    <h2><%= project.title %></h2>
 
-    <span class="section-label">
-        SERVICE PROJECT
-    </span>
-
-    <h2>
-        <%= title %>
-    </h2>
-
-</section>
-
-
-<section class="detail-card">
-
-    <article class="card">
-
-        <h3>
-            <%= project.title %>
-        </h3>
-
-
+    <% if (project.description) { %>
         <p>
             <%= project.description %>
         </p>
+    <% } %>
 
+    <p>
+        <strong>Organization:</strong>
 
-        <div class="project-details">
-
-            <p>
-
-                <strong>
-                    Organization:
-                </strong>
-
-                <%= project.organization_name %>
-
-            </p>
-
-
-            <p>
-
-                <strong>
-                    Location:
-                </strong>
-
-                <%= project.location %>
-
-            </p>
-
-
-            <p>
-
-                <strong>
-                    Date:
-                </strong>
-
-                <%= new Date(
-                    project.project_date
-                ).toLocaleDateString(
-                    "en-US"
-                ) %>
-
-            </p>
-
-
-            <p>
-
-                <strong>
-                    Categories:
-                </strong>
-
-                <% if (
-                    project.categories &&
-                    project.categories.length > 0
-                ) { %>
-
-                    <%= project.categories.join(", ") %>
-
-                <% } else { %>
-
-                    Uncategorized
-
-                <% } %>
-
-            </p>
-
-        </div>
-
-
-        <a
-            href="/projects"
-            class="button button-primary"
-        >
-            Back to Projects
+        <a href="/organizations/<%= project.organization_id %>">
+            <%= project.organization_name %>
         </a>
+    </p>
 
-    </article>
+    <% if (project.location) { %>
+        <p>
+            <strong>Location:</strong>
+            <%= project.location %>
+        </p>
+    <% } %>
+
+    <% if (project.project_date) { %>
+        <p>
+            <strong>Date:</strong>
+            <%= new Date(project.project_date).toLocaleDateString() %>
+        </p>
+    <% } %>
 
 </section>
 
+<section>
+
+    <h2>Categories</h2>
+
+    <% if (categories && categories.length > 0) { %>
+
+        <ul class="category-list">
+
+            <% categories.forEach(category => { %>
+
+                <li>
+                    <a href="/categories/<%= category.category_id %>">
+                        <%= category.category_name %>
+                    </a>
+                </li>
+
+            <% }) %>
+
+        </ul>
+
+    <% } else { %>
+
+        <p>
+            This project has no categories.
+        </p>
+
+    <% } %>
+
+</section>
+
+<p>
+    <a class="button" href="/projects">
+        Back to Projects
+    </a>
+</p>
 
 <%- include("partials/footer") %>
